@@ -1,0 +1,1394 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eclipse Group ™ | Architecting Global Excellence</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cream: {
+                            50: '#FDFBF7',
+                            100: '#F8F4EC',
+                            200: '#F2EBE0',
+                            300: '#E6DAC8',
+                            400: '#D4C4AC',
+                        },
+                        charcoal: {
+                            900: '#0F0E0E',
+                            800: '#1A1918',
+                            700: '#2C2B28',
+                            600: '#42403B',
+                            500: '#5C5953',
+                        },
+                        crimson: {
+                            900: '#4A0808',
+                            800: '#730D0D',
+                            700: '#8B0000',
+                            600: '#A31D1D',
+                            500: '#C02A2A',
+                            100: '#F9EBEB',
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['"Cormorant Garamond"', 'Georgia', 'serif'],
+                        display: ['"Playfair Display"', 'Georgia', 'serif'],
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'luxury': '0 20px 50px -10px rgba(26, 25, 24, 0.08)',
+                        'glow': '0 0 35px rgba(139, 0, 0, 0.15)',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <style>
+        /* Custom Scrollbar & Aesthetics */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #F8F4EC;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #D4C4AC;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #8B0000;
+        }
+        
+        .glass-nav {
+            background: rgba(253, 251, 247, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.65);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(230, 218, 200, 0.6);
+        }
+
+        .dark-glass-card {
+            background: rgba(26, 25, 24, 0.92);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(139, 0, 0, 0.2);
+        }
+
+        .text-gradient-crimson {
+            background: linear-gradient(135deg, #8B0000 0%, #C02A2A 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .bg-gradient-crimson {
+            background: linear-gradient(135deg, #730D0D 0%, #8B0000 50%, #580A0A 100%);
+        }
+
+        /* Subtle luxury image zoom */
+        .zoom-img {
+            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .zoom-img-container:hover .zoom-img {
+            transform: scale(1.04);
+        }
+
+        /* Keyframe for Eclipse Pulse */
+        @keyframes eclipseGlow {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(1.05); }
+        }
+        .animate-eclipse {
+            animation: eclipseGlow 8s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body class="bg-cream-50 text-charcoal-800 font-sans selection:bg-crimson-700 selection:text-white antialiased overflow-x-hidden">
+
+    <!-- Top Global Ticker Bar -->
+    <div class="bg-charcoal-900 text-cream-200 text-xs py-2 px-4 border-b border-charcoal-700/50">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-2">
+            <div class="flex items-center gap-4 overflow-x-auto whitespace-nowrap text-[11px] tracking-wider uppercase">
+                <span class="flex items-center gap-1.5 text-crimson-500 font-semibold">
+                    <span class="w-2 h-2 rounded-full bg-crimson-500 animate-ping"></span> ECLIPSE GLOBAL MARKETS
+                </span>
+                <span class="text-charcoal-500">|</span>
+                <span>NYSE: <strong class="text-white">+1.24%</strong></span>
+                <span>LSE: <strong class="text-white">+0.88%</strong></span>
+                <span>TSE: <strong class="text-white">+1.05%</strong></span>
+                <span>AUM: <strong class="text-white">$4.85B USD</strong></span>
+            </div>
+            <div class="flex items-center gap-6 text-[11px] tracking-widest uppercase text-cream-300">
+                <div class="flex items-center gap-2">
+                    <i data-lucide="globe" class="w-3.5 h-3.5 text-crimson-500"></i>
+                    <span id="globalClock">NY 08:30 • LON 13:30 • DXB 16:30 • TYO 21:30</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation Bar -->
+    <header class="sticky top-0 z-50 glass-nav border-b border-cream-300/60 transition-all duration-300" id="mainHeader">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12 h-20 flex items-center justify-between">
+            
+            <!-- Brand Logo -->
+            <a href="#" class="flex items-center gap-3 group">
+                <div class="relative w-9 h-9 rounded-full bg-charcoal-900 flex items-center justify-center overflow-hidden border border-crimson-700/40 group-hover:border-crimson-600 transition-colors">
+                    <div class="absolute inset-0 bg-gradient-to-tr from-crimson-900 via-crimson-700 to-transparent opacity-80"></div>
+                    <div class="w-4 h-4 rounded-full bg-cream-50 transform -translate-x-1 translate-y-0.5 group-hover:translate-x-0 transition-transform duration-500"></div>
+                </div>
+                <div class="flex flex-col">
+                    <span class="font-display text-xl font-bold tracking-[0.2em] text-charcoal-900 uppercase leading-none">
+                        ECLIPSE
+                    </span>
+                    <span class="text-[9px] tracking-[0.35em] text-crimson-700 uppercase font-semibold mt-1">
+                        GROUP ™
+                    </span>
+                </div>
+            </a>
+
+            <!-- Navigation Links -->
+            <nav class="hidden lg:flex items-center gap-9 text-xs font-semibold tracking-[0.18em] uppercase text-charcoal-700">
+                <a href="#vision" class="hover:text-crimson-700 transition-colors py-1 relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-crimson-700 hover:after:w-full after:transition-all">Vision</a>
+                <a href="#divisions" class="hover:text-crimson-700 transition-colors py-1 relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-crimson-700 hover:after:w-full after:transition-all">Divisions</a>
+                <a href="#impact" class="hover:text-crimson-700 transition-colors py-1 relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-crimson-700 hover:after:w-full after:transition-all">Impact & ESG</a>
+                <a href="#leadership" class="hover:text-crimson-700 transition-colors py-1 relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-crimson-700 hover:after:w-full after:transition-all">Leadership</a>
+                <a href="#newsroom" class="hover:text-crimson-700 transition-colors py-1 relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-crimson-700 hover:after:w-full after:transition-all">Newsroom</a>
+            </nav>
+
+            <!-- Header CTA & Mobile Toggle -->
+            <div class="flex items-center gap-4">
+                <a href="#contact" class="hidden sm:inline-flex items-center gap-2 bg-charcoal-900 text-cream-50 px-5 py-2.5 rounded-none text-xs font-semibold tracking-[0.18em] uppercase hover:bg-crimson-700 transition-all duration-300 shadow-sm border border-charcoal-800 hover:border-crimson-700">
+                    <span>Investor Portal</span>
+                    <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i>
+                </a>
+
+                <!-- Mobile Menu Button -->
+                <button id="menuBtn" class="lg:hidden p-2 text-charcoal-900 hover:text-crimson-700 focus:outline-none" aria-label="Toggle Menu">
+                    <i data-lucide="menu" id="menuIcon" class="w-6 h-6"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Drawer Menu -->
+        <div id="mobileMenu" class="hidden lg:hidden bg-cream-100 border-b border-cream-300 px-6 py-8 transition-all">
+            <div class="flex flex-col gap-6 text-sm font-semibold tracking-[0.2em] uppercase text-charcoal-800">
+                <a href="#vision" class="mobile-link hover:text-crimson-700">Vision</a>
+                <a href="#divisions" class="mobile-link hover:text-crimson-700">Divisions</a>
+                <a href="#impact" class="mobile-link hover:text-crimson-700">Impact & ESG</a>
+                <a href="#leadership" class="mobile-link hover:text-crimson-700">Leadership</a>
+                <a href="#newsroom" class="mobile-link hover:text-crimson-700">Newsroom</a>
+                <a href="#contact" class="mobile-link text-crimson-700 flex items-center gap-2 pt-2 border-t border-cream-300">
+                    <span>Investor Inquiry</span>
+                    <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative min-h-[90vh] flex items-center overflow-hidden bg-cream-50 pt-12 pb-24 border-b border-cream-300/80">
+        <!-- Interactive Canvas Background -->
+        <canvas id="eclipseCanvas" class="absolute inset-0 w-full h-full pointer-events-none opacity-40 z-0"></canvas>
+        
+        <!-- Subtle Ambient Lighting Effect -->
+        <div class="absolute top-1/4 right-10 w-96 h-96 rounded-full bg-crimson-700/10 blur-[120px] pointer-events-none animate-eclipse"></div>
+        <div class="absolute bottom-10 left-10 w-80 h-80 rounded-full bg-cream-400/20 blur-[100px] pointer-events-none"></div>
+
+        <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-12 w-full">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Left Hero Column -->
+                <div class="lg:col-span-8 space-y-8">
+                    
+                    <div class="inline-flex items-center gap-3 px-4 py-2 bg-cream-200/70 border border-cream-300 rounded-full">
+                        <span class="w-2 h-2 rounded-full bg-crimson-700"></span>
+                        <span class="text-[11px] font-semibold tracking-[0.25em] uppercase text-charcoal-700">Global Conglomerate & Holding Group</span>
+                    </div>
+
+                    <h1 class="font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-normal tracking-tight leading-[1.05] text-charcoal-900">
+                        Architecting <br>
+                        <span class="font-serif italic text-crimson-700 font-semibold">Global Excellence</span> <br>
+                        & Future Legacy.
+                    </h1>
+
+                    <p class="text-base sm:text-lg text-charcoal-600 max-w-2xl font-normal leading-relaxed">
+                        Eclipse Group ™ manages a strategic global enterprise portfolio across private equity, luxury architecture, artificial intelligence research, and media ecosystems—driving high-yield sustainable impact for future generations.
+                    </p>
+
+                    <div class="flex flex-wrap items-center gap-4 pt-4">
+                        <a href="#divisions" class="px-8 py-4 bg-crimson-700 hover:bg-crimson-800 text-cream-50 font-medium text-xs tracking-[0.2em] uppercase transition-all shadow-luxury hover:shadow-glow flex items-center gap-3">
+                            <span>Explore Portfolio</span>
+                            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                        </a>
+
+                        <a href="#contact" class="px-8 py-4 bg-cream-100 hover:bg-cream-200 text-charcoal-900 border border-cream-300 font-medium text-xs tracking-[0.2em] uppercase transition-all flex items-center gap-3">
+                            <span>Schedule Consultation</span>
+                            <i data-lucide="calendar" class="w-4 h-4 text-crimson-700"></i>
+                        </a>
+                    </div>
+
+                    <!-- Key Highlighting Attributes -->
+                    <div class="pt-8 border-t border-cream-300/80 grid grid-cols-3 gap-6 max-w-xl">
+                        <div>
+                            <div class="text-[10px] tracking-[0.2em] uppercase text-charcoal-500">Established</div>
+                            <div class="font-serif text-2xl font-bold text-charcoal-900">MMXIX</div>
+                        </div>
+                        <div>
+                            <div class="text-[10px] tracking-[0.2em] uppercase text-charcoal-500">Headquarters</div>
+                            <div class="font-serif text-2xl font-bold text-charcoal-900">Zurich & NY</div>
+                        </div>
+                        <div>
+                            <div class="text-[10px] tracking-[0.2em] uppercase text-charcoal-500">Compliance</div>
+                            <div class="font-serif text-2xl font-bold text-crimson-700">ESG Top 1%</div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Right Visual Hero Card -->
+                <div class="lg:col-span-4 relative">
+                    <div class="relative bg-cream-100 p-8 border border-cream-300 shadow-luxury overflow-hidden group">
+                        <div class="absolute -right-12 -top-12 w-40 h-40 bg-crimson-700/10 rounded-full blur-2xl"></div>
+                        
+                        <!-- Architectural Aesthetic Image Container -->
+                        <div class="zoom-img-container relative h-80 overflow-hidden mb-6 border border-cream-300">
+                            <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1000&q=80" 
+                                 alt="Eclipse Architectural Vision" 
+                                 class="w-full h-full object-cover zoom-img filter grayscale contrast-125 brightness-95">
+                            <div class="absolute inset-0 bg-gradient-to-t from-charcoal-900/80 via-transparent to-transparent"></div>
+                            <div class="absolute bottom-4 left-4 right-4 text-cream-50">
+                                <span class="text-[10px] tracking-[0.2em] uppercase text-crimson-100 font-semibold">Project Vanguard</span>
+                                <h4 class="font-serif text-lg font-bold">Global Headquarters Expansion</h4>
+                            </div>
+                        </div>
+
+                        <div class="space-y-4">
+                            <div class="flex items-center justify-between text-xs border-b border-cream-200 pb-2">
+                                <span class="text-charcoal-500 tracking-wider">ANNUAL COMPOUND GROWTH</span>
+                                <span class="font-bold text-crimson-700">+24.6%</span>
+                            </div>
+                            <div class="flex items-center justify-between text-xs border-b border-cream-200 pb-2">
+                                <span class="text-charcoal-500 tracking-wider">ACTIVE MARKETS</span>
+                                <span class="font-bold text-charcoal-900">32 Countries</span>
+                            </div>
+                            <div class="flex items-center justify-between text-xs">
+                                <span class="text-charcoal-500 tracking-wider">SUSTAINABLE ASSETS</span>
+                                <span class="font-bold text-charcoal-900">100% Verified</span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Vision & Metrics Section -->
+    <section id="vision" class="py-24 bg-cream-100 border-b border-cream-300">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12">
+            
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
+                
+                <div class="lg:col-span-5 space-y-6">
+                    <span class="text-xs font-bold tracking-[0.25em] text-crimson-700 uppercase">Core Philosophy</span>
+                    <h2 class="font-display text-4xl sm:text-5xl font-normal text-charcoal-900 leading-tight">
+                        Powering Progress Through Visionary Stewardship.
+                    </h2>
+                    <p class="text-charcoal-600 leading-relaxed text-sm sm:text-base">
+                        Eclipse Group ™ operates at the intersection of capital precision, long-term strategic patience, and pioneering innovation. We build and acquire market-defining institutions that transcend standard operational lifecycles.
+                    </p>
+                    <div class="p-6 bg-cream-50 border-l-2 border-crimson-700 shadow-sm space-y-2">
+                        <p class="font-serif italic text-lg text-charcoal-900">
+                            "We do not merely react to global paradigm shifts; we cultivate the infrastructure that makes them possible."
+                        </p>
+                        <p class="text-xs tracking-widest text-crimson-700 uppercase font-semibold">
+                            — Board of Directors, Eclipse Group ™
+                        </p>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-7">
+                    <!-- Dynamic Metrics Counter Grid -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                        
+                        <div class="bg-cream-50 p-8 border border-cream-300 shadow-sm relative group hover:border-crimson-700/50 transition-colors">
+                            <div class="text-crimson-700 mb-3">
+                                <i data-lucide="vault" class="w-8 h-8"></i>
+                            </div>
+                            <div class="font-serif text-4xl sm:text-5xl font-bold text-charcoal-900 mb-1 tracking-tight">
+                                $<span class="counter" data-target="4.85">0</span>B
+                            </div>
+                            <h3 class="text-xs font-semibold tracking-[0.2em] text-charcoal-800 uppercase mb-2">Assets Under Management</h3>
+                            <p class="text-xs text-charcoal-500 leading-relaxed">Diversified across global real assets, technology equity, and sovereign infrastructure.</p>
+                        </div>
+
+                        <div class="bg-cream-50 p-8 border border-cream-300 shadow-sm relative group hover:border-crimson-700/50 transition-colors">
+                            <div class="text-crimson-700 mb-3">
+                                <i data-lucide="building-2" class="w-8 h-8"></i>
+                            </div>
+                            <div class="font-serif text-4xl sm:text-5xl font-bold text-charcoal-900 mb-1 tracking-tight">
+                                <span class="counter" data-target="18">0</span>
+                            </div>
+                            <h3 class="text-xs font-semibold tracking-[0.2em] text-charcoal-800 uppercase mb-2">Global Innovation Hubs</h3>
+                            <p class="text-xs text-charcoal-500 leading-relaxed">Strategic operational footprints in Zurich, London, New York, Tokyo, and Dubai.</p>
+                        </div>
+
+                        <div class="bg-cream-50 p-8 border border-cream-300 shadow-sm relative group hover:border-crimson-700/50 transition-colors">
+                            <div class="text-crimson-700 mb-3">
+                                <i data-lucide="layers" class="w-8 h-8"></i>
+                            </div>
+                            <div class="font-serif text-4xl sm:text-5xl font-bold text-charcoal-900 mb-1 tracking-tight">
+                                <span class="counter" data-target="4">0</span> Core
+                            </div>
+                            <h3 class="text-xs font-semibold tracking-[0.2em] text-charcoal-800 uppercase mb-2">Enterprise Divisions</h3>
+                            <p class="text-xs text-charcoal-500 leading-relaxed">Capital Ventures, Real Estate, Artificial Intelligence, and Creative Media Media.</p>
+                        </div>
+
+                        <div class="bg-cream-50 p-8 border border-cream-300 shadow-sm relative group hover:border-crimson-700/50 transition-colors">
+                            <div class="text-crimson-700 mb-3">
+                                <i data-lucide="shield-check" class="w-8 h-8"></i>
+                            </div>
+                            <div class="font-serif text-4xl sm:text-5xl font-bold text-charcoal-900 mb-1 tracking-tight">
+                                <span class="counter" data-target="100">0</span>%
+                            </div>
+                            <h3 class="text-xs font-semibold tracking-[0.2em] text-charcoal-800 uppercase mb-2">Sustainable Mandate</h3>
+                            <p class="text-xs text-charcoal-500 leading-relaxed">Every portfolio enterprise adheres strictly to net-zero alignment targets by 2030.</p>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Strategic Divisions Section -->
+    <section id="divisions" class="py-28 bg-cream-50">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12">
+            
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+                <div>
+                    <span class="text-xs font-bold tracking-[0.25em] text-crimson-700 uppercase">Strategic Enterprise Portfolio</span>
+                    <h2 class="font-display text-4xl sm:text-5xl font-normal text-charcoal-900 mt-2">
+                        Four Pillars of Global Power.
+                    </h2>
+                </div>
+                <p class="text-sm text-charcoal-600 max-w-md">
+                    Each division operates as an autonomous leader in its industry while benefiting from the unified capital power and strategic governance of Eclipse Group ™.
+                </p>
+            </div>
+
+            <!-- Division Filter Tabs -->
+            <div class="flex items-center gap-2 overflow-x-auto pb-4 mb-12 border-b border-cream-300 text-xs font-semibold tracking-[0.18em] uppercase whitespace-nowrap" id="divisionTabs">
+                <button class="tab-btn px-6 py-3 bg-charcoal-900 text-cream-50 transition-all" data-tab="all">All Divisions</button>
+                <button class="tab-btn px-6 py-3 bg-cream-200 text-charcoal-700 hover:bg-cream-300 transition-all" data-tab="capital">Capital & Private Equity</button>
+                <button class="tab-btn px-6 py-3 bg-cream-200 text-charcoal-700 hover:bg-cream-300 transition-all" data-tab="realestate">Real Estate & Architecture</button>
+                <button class="tab-btn px-6 py-3 bg-cream-200 text-charcoal-700 hover:bg-cream-300 transition-all" data-tab="tech">Future Tech & AI Labs</button>
+                <button class="tab-btn px-6 py-3 bg-cream-200 text-charcoal-700 hover:bg-cream-300 transition-all" data-tab="media">Media & Global Ventures</button>
+            </div>
+
+            <!-- Division Cards Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8" id="divisionGrid">
+                
+                <!-- Division 1 -->
+                <div class="division-card glass-card p-8 sm:p-10 border border-cream-300 hover:shadow-luxury transition-all duration-300 group" data-category="capital">
+                    <div class="flex justify-between items-start mb-6">
+                        <span class="text-[10px] font-bold tracking-[0.3em] uppercase px-3 py-1 bg-crimson-100 text-crimson-700 border border-crimson-700/20">Division I</span>
+                        <i data-lucide="trending-up" class="w-6 h-6 text-crimson-700"></i>
+                    </div>
+                    <h3 class="font-display text-2xl sm:text-3xl font-semibold text-charcoal-900 mb-3 group-hover:text-crimson-700 transition-colors">
+                        Eclipse Capital & Private Equity
+                    </h3>
+                    <p class="text-sm text-charcoal-600 leading-relaxed mb-6">
+                        Specializing in growth-stage equity, cross-border corporate restructuring, sovereign coinvestment, and high-yield infrastructure credit.
+                    </p>
+                    <div class="space-y-2 border-t border-cream-300/60 pt-4 mb-6 text-xs text-charcoal-700">
+                        <div class="flex justify-between"><span>Primary Markets:</span> <strong>North America, Europe, MENA</strong></div>
+                        <div class="flex justify-between"><span>Portfolio Value:</span> <strong>$2.1B USD</strong></div>
+                        <div class="flex justify-between"><span>Active Deals:</span> <strong>42 Global Transactions</strong></div>
+                    </div>
+                    <button onclick="openDivisionModal('capital')" class="inline-flex items-center gap-2 text-xs font-bold tracking-[0.2em] text-crimson-700 uppercase group-hover:translate-x-1 transition-transform">
+                        <span>View Enterprise Blueprint</span>
+                        <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                    </button>
+                </div>
+
+                <!-- Division 2 -->
+                <div class="division-card glass-card p-8 sm:p-10 border border-cream-300 hover:shadow-luxury transition-all duration-300 group" data-category="realestate">
+                    <div class="flex justify-between items-start mb-6">
+                        <span class="text-[10px] font-bold tracking-[0.3em] uppercase px-3 py-1 bg-crimson-100 text-crimson-700 border border-crimson-700/20">Division II</span>
+                        <i data-lucide="building" class="w-6 h-6 text-crimson-700"></i>
+                    </div>
+                    <h3 class="font-display text-2xl sm:text-3xl font-semibold text-charcoal-900 mb-3 group-hover:text-crimson-700 transition-colors">
+                        Eclipse Real Estate & Architectural Holdings
+                    </h3>
+                    <p class="text-sm text-charcoal-600 leading-relaxed mb-6">
+                        Acquiring and engineering ultra-prime trophy commercial assets, sustainable luxury urban developments, and architectural landmarks worldwide.
+                    </p>
+                    <div class="space-y-2 border-t border-cream-300/60 pt-4 mb-6 text-xs text-charcoal-700">
+                        <div class="flex justify-between"><span>Square Footage:</span> <strong>12.4M Sq. Ft. Managed</strong></div>
+                        <div class="flex justify-between"><span>Portfolio Value:</span> <strong>$1.6B USD</strong></div>
+                        <div class="flex justify-between"><span>Flagship City:</span> <strong>London & Zurich</strong></div>
+                    </div>
+                    <button onclick="openDivisionModal('realestate')" class="inline-flex items-center gap-2 text-xs font-bold tracking-[0.2em] text-crimson-700 uppercase group-hover:translate-x-1 transition-transform">
+                        <span>View Enterprise Blueprint</span>
+                        <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                    </button>
+                </div>
+
+                <!-- Division 3 -->
+                <div class="division-card glass-card p-8 sm:p-10 border border-cream-300 hover:shadow-luxury transition-all duration-300 group" data-category="tech">
+                    <div class="flex justify-between items-start mb-6">
+                        <span class="text-[10px] font-bold tracking-[0.3em] uppercase px-3 py-1 bg-crimson-100 text-crimson-700 border border-crimson-700/20">Division III</span>
+                        <i data-lucide="cpu" class="w-6 h-6 text-crimson-700"></i>
+                    </div>
+                    <h3 class="font-display text-2xl sm:text-3xl font-semibold text-charcoal-900 mb-3 group-hover:text-crimson-700 transition-colors">
+                        Eclipse Future Tech & AI Research Labs
+                    </h3>
+                    <p class="text-sm text-charcoal-600 leading-relaxed mb-6">
+                        Incubating and funding breakthrough artificial intelligence infrastructure, quantum compute protocols, and clean-energy grid systems.
+                    </p>
+                    <div class="space-y-2 border-t border-cream-300/60 pt-4 mb-6 text-xs text-charcoal-700">
+                        <div class="flex justify-between"><span>Patents Awarded:</span> <strong>114 Global Patents</strong></div>
+                        <div class="flex justify-between"><span>Core Focus:</span> <strong>Generative AI & Quantum Computing</strong></div>
+                        <div class="flex justify-between"><span>Lab Location:</span> <strong>Zurich & Silicon Valley</strong></div>
+                    </div>
+                    <button onclick="openDivisionModal('tech')" class="inline-flex items-center gap-2 text-xs font-bold tracking-[0.2em] text-crimson-700 uppercase group-hover:translate-x-1 transition-transform">
+                        <span>View Enterprise Blueprint</span>
+                        <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                    </button>
+                </div>
+
+                <!-- Division 4 -->
+                <div class="division-card glass-card p-8 sm:p-10 border border-cream-300 hover:shadow-luxury transition-all duration-300 group" data-category="media">
+                    <div class="flex justify-between items-start mb-6">
+                        <span class="text-[10px] font-bold tracking-[0.3em] uppercase px-3 py-1 bg-crimson-100 text-crimson-700 border border-crimson-700/20">Division IV</span>
+                        <i data-lucide="globe-2" class="w-6 h-6 text-crimson-700"></i>
+                    </div>
+                    <h3 class="font-display text-2xl sm:text-3xl font-semibold text-charcoal-900 mb-3 group-hover:text-crimson-700 transition-colors">
+                        Eclipse Media & Creative Global Ventures
+                    </h3>
+                    <p class="text-sm text-charcoal-600 leading-relaxed mb-6">
+                        Curating premium narrative media, digital publishing networks, high-level strategic communications, and cultural intelligence entities.
+                    </p>
+                    <div class="space-y-2 border-t border-cream-300/60 pt-4 mb-6 text-xs text-charcoal-700">
+                        <div class="flex justify-between"><span>Global Audience:</span> <strong>85M+ Monthly Reach</strong></div>
+                        <div class="flex justify-between"><span>Publishing Entities:</span> <strong>9 Luxury Brands</strong></div>
+                        <div class="flex justify-between"><span>Main Hub:</span> <strong>New York & Tokyo</strong></div>
+                    </div>
+                    <button onclick="openDivisionModal('media')" class="inline-flex items-center gap-2 text-xs font-bold tracking-[0.2em] text-crimson-700 uppercase group-hover:translate-x-1 transition-transform">
+                        <span>View Enterprise Blueprint</span>
+                        <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                    </button>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Impact & Sustainability Section -->
+    <section id="impact" class="py-28 bg-charcoal-900 text-cream-50 relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-1/3 h-full bg-crimson-900/10 blur-[150px] pointer-events-none"></div>
+        
+        <div class="max-w-7xl mx-auto px-6 lg:px-12 relative z-10">
+            
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+                
+                <div class="lg:col-span-6 space-y-8">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 bg-crimson-900/40 border border-crimson-700/50 text-crimson-500 text-[10px] font-bold tracking-[0.25em] uppercase">
+                        <span>Environmental, Social & Corporate Governance</span>
+                    </div>
+
+                    <h2 class="font-display text-4xl sm:text-5xl font-normal leading-tight text-white">
+                        Responsible Stewardship. <br>
+                        <span class="font-serif italic text-crimson-500 font-semibold">Uncompromised Standard.</span>
+                    </h2>
+
+                    <p class="text-cream-300/80 leading-relaxed text-sm sm:text-base font-light">
+                        Capital allocation in the 21st century requires unwavering moral clarity. At Eclipse Group ™, every capital investment passes through our proprietary Triple-Bottom-Line Index—evaluating long-term financial yield, carbon neutrality impact, and social value creation.
+                    </p>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-2">
+                        <div class="p-5 border border-charcoal-700 bg-charcoal-800/50 space-y-2">
+                            <i data-lucide="leaf" class="w-5 h-5 text-crimson-500"></i>
+                            <h4 class="font-serif text-lg font-bold">100% Net-Zero Mandate</h4>
+                            <p class="text-xs text-cream-400">All real estate developments engineered to LEED Platinum or BREEAM Outstanding standards.</p>
+                        </div>
+
+                        <div class="p-5 border border-charcoal-700 bg-charcoal-800/50 space-y-2">
+                            <i data-lucide="scale" class="w-5 h-5 text-crimson-500"></i>
+                            <h4 class="font-serif text-lg font-bold">Independent Governance</h4>
+                            <p class="text-xs text-cream-400">70% independent board members ensuring zero conflict of interest across holdings.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Interactive ESG Calculator Box -->
+                <div class="lg:col-span-6">
+                    <div class="dark-glass-card p-8 sm:p-10 border border-crimson-800/40 space-y-6">
+                        <div class="flex items-center justify-between border-b border-charcoal-700 pb-4">
+                            <h3 class="font-display text-xl font-bold text-white">Interactive Sustainability Matrix</h3>
+                            <span class="text-[10px] tracking-widest text-crimson-500 uppercase font-semibold">Projections 2026-2030</span>
+                        </div>
+
+                        <div class="space-y-5">
+                            <div>
+                                <div class="flex justify-between text-xs mb-2">
+                                    <span class="text-cream-300">Clean Energy Allocation Target</span>
+                                    <span id="targetVal" class="text-crimson-500 font-bold">75%</span>
+                                </div>
+                                <input type="range" id="energySlider" min="50" max="100" value="75" class="w-full h-1.5 bg-charcoal-700 rounded-lg appearance-none cursor-pointer accent-crimson-700">
+                            </div>
+
+                            <div class="p-4 bg-charcoal-800/80 border border-charcoal-700 space-y-3">
+                                <div class="flex justify-between text-xs">
+                                    <span class="text-cream-400">Projected Carbon Offset:</span>
+                                    <strong id="carbonOffset" class="text-white">1.85 Million Metric Tons</strong>
+                                </div>
+                                <div class="flex justify-between text-xs">
+                                    <span class="text-cream-400">Social Capital Reinvestment:</span>
+                                    <strong id="socialReinvest" class="text-white">$142 Million USD</strong>
+                                </div>
+                                <div class="flex justify-between text-xs">
+                                    <span class="text-cream-400">ESG Index Rating:</span>
+                                    <strong id="esgRating" class="text-crimson-500 font-bold">AAA+ (Top Tier)</strong>
+                                </div>
+                            </div>
+
+                            <p class="text-[11px] text-cream-400/60 leading-relaxed italic">
+                                *Adjust the target slider to calculate Eclipse Group's aggregated sustainability metrics across all four enterprise divisions.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Leadership Section -->
+    <section id="leadership" class="py-28 bg-cream-50 border-b border-cream-300">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12">
+            
+            <div class="text-center max-w-2xl mx-auto mb-20 space-y-3">
+                <span class="text-xs font-bold tracking-[0.25em] text-crimson-700 uppercase">Board & Executive Officers</span>
+                <h2 class="font-display text-4xl sm:text-5xl font-normal text-charcoal-900">
+                    Governance & Leadership.
+                </h2>
+                <p class="text-sm text-charcoal-600">
+                    Guided by seasoned financiers, architectural pioneers, and tech visionaries with over a century of cumulative market leadership.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                
+                <!-- Leader 1 -->
+                <div class="bg-cream-100 border border-cream-300 overflow-hidden group hover:shadow-luxury transition-all">
+                    <div class="relative h-80 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800&q=80" 
+                             alt="Lord Alexander Vance" 
+                             class="w-full h-full object-cover filter grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-charcoal-900/90 via-transparent to-transparent"></div>
+                        <div class="absolute bottom-4 left-4 right-4 text-white">
+                            <h4 class="font-serif text-xl font-bold">Lord Alexander Vance</h4>
+                            <p class="text-[11px] tracking-widest text-crimson-500 uppercase font-semibold">Executive Chairman & Founder</p>
+                        </div>
+                    </div>
+                    <div class="p-6 space-y-4">
+                        <p class="text-xs text-charcoal-600 leading-relaxed">
+                            Former senior advisor to sovereign funds, leading Eclipse Group's strategic macro vision.
+                        </p>
+                        <button onclick="openExecModal('vance')" class="text-xs font-bold tracking-[0.18em] text-crimson-700 uppercase flex items-center gap-1 hover:gap-2 transition-all">
+                            <span>Read Biography</span>
+                            <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Leader 2 -->
+                <div class="bg-cream-100 border border-cream-300 overflow-hidden group hover:shadow-luxury transition-all">
+                    <div class="relative h-80 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=800&q=80" 
+                             alt="Dr. Elena Rostova" 
+                             class="w-full h-full object-cover filter grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-charcoal-900/90 via-transparent to-transparent"></div>
+                        <div class="absolute bottom-4 left-4 right-4 text-white">
+                            <h4 class="font-serif text-xl font-bold">Dr. Elena Rostova</h4>
+                            <p class="text-[11px] tracking-widest text-crimson-500 uppercase font-semibold">Managing Partner, Capital & Tech</p>
+                        </div>
+                    </div>
+                    <div class="p-6 space-y-4">
+                        <p class="text-xs text-charcoal-600 leading-relaxed">
+                            Quantum compute PhD from ETH Zurich, orchestrating venture investment in frontier AI.
+                        </p>
+                        <button onclick="openExecModal('rostova')" class="text-xs font-bold tracking-[0.18em] text-crimson-700 uppercase flex items-center gap-1 hover:gap-2 transition-all">
+                            <span>Read Biography</span>
+                            <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Leader 3 -->
+                <div class="bg-cream-100 border border-cream-300 overflow-hidden group hover:shadow-luxury transition-all">
+                    <div class="relative h-80 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=800&q=80" 
+                             alt="Marcus Sterling" 
+                             class="w-full h-full object-cover filter grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-charcoal-900/90 via-transparent to-transparent"></div>
+                        <div class="absolute bottom-4 left-4 right-4 text-white">
+                            <h4 class="font-serif text-xl font-bold">Marcus Sterling</h4>
+                            <p class="text-[11px] tracking-widest text-crimson-500 uppercase font-semibold">Director, Real Estate Holdings</p>
+                        </div>
+                    </div>
+                    <div class="p-6 space-y-4">
+                        <p class="text-xs text-charcoal-600 leading-relaxed">
+                            Renowned urban designer overseeing multi-billion urban regeneration projects in Europe & Asia.
+                        </p>
+                        <button onclick="openExecModal('sterling')" class="text-xs font-bold tracking-[0.18em] text-crimson-700 uppercase flex items-center gap-1 hover:gap-2 transition-all">
+                            <span>Read Biography</span>
+                            <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Leader 4 -->
+                <div class="bg-cream-100 border border-cream-300 overflow-hidden group hover:shadow-luxury transition-all">
+                    <div class="relative h-80 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=800&q=80" 
+                             alt="Sophia Chen" 
+                             class="w-full h-full object-cover filter grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-charcoal-900/90 via-transparent to-transparent"></div>
+                        <div class="absolute bottom-4 left-4 right-4 text-white">
+                            <h4 class="font-serif text-xl font-bold">Sophia Chen</h4>
+                            <p class="text-[11px] tracking-widest text-crimson-500 uppercase font-semibold">Chief ESG & Governance Officer</p>
+                        </div>
+                    </div>
+                    <div class="p-6 space-y-4">
+                        <p class="text-xs text-charcoal-600 leading-relaxed">
+                            Global sustainability advocate spearheading international corporate governance standards.
+                        </p>
+                        <button onclick="openExecModal('chen')" class="text-xs font-bold tracking-[0.18em] text-crimson-700 uppercase flex items-center gap-1 hover:gap-2 transition-all">
+                            <span>Read Biography</span>
+                            <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Newsroom Section -->
+    <section id="newsroom" class="py-28 bg-cream-100 border-b border-cream-300">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12">
+            
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+                <div>
+                    <span class="text-xs font-bold tracking-[0.25em] text-crimson-700 uppercase">Corporate Insights & Announcements</span>
+                    <h2 class="font-display text-4xl sm:text-5xl font-normal text-charcoal-900 mt-2">
+                        Newsroom & Press Releases.
+                    </h2>
+                </div>
+                <div class="flex items-center gap-3">
+                    <input type="text" id="newsSearch" placeholder="Search announcements..." class="px-4 py-2.5 bg-cream-50 border border-cream-300 text-xs text-charcoal-800 focus:outline-none focus:border-crimson-700 w-60">
+                </div>
+            </div>
+
+            <!-- News Cards Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8" id="newsGrid">
+                
+                <!-- Article 1 -->
+                <article class="bg-cream-50 border border-cream-300 p-8 space-y-4 flex flex-col justify-between hover:border-crimson-700/50 transition-colors news-item" data-title="capital $850m green bond launch">
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between text-[10px] font-semibold tracking-[0.2em] text-crimson-700 uppercase">
+                            <span>Press Release</span>
+                            <span>Oct 2026</span>
+                        </div>
+                        <h3 class="font-display text-xl font-bold text-charcoal-900 leading-snug">
+                            Eclipse Group ™ Issues Over-Subscribed $850M Sovereign Green Infrastructure Bond.
+                        </h3>
+                        <p class="text-xs text-charcoal-600 leading-relaxed">
+                            The bond proceeds will directly fund net-zero urban transit expansion and clean grid architecture in Western Europe.
+                        </p>
+                    </div>
+                    <button onclick="readArticle('bond')" class="text-xs font-bold tracking-[0.18em] text-crimson-700 uppercase flex items-center gap-2 pt-4 border-t border-cream-200">
+                        <span>Read Full Release</span>
+                        <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                    </button>
+                </article>
+
+                <!-- Article 2 -->
+                <article class="bg-cream-50 border border-cream-300 p-8 space-y-4 flex flex-col justify-between hover:border-crimson-700/50 transition-colors news-item" data-title="tech generative AI laboratory launch zurich">
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between text-[10px] font-semibold tracking-[0.2em] text-crimson-700 uppercase">
+                            <span>Strategic Partnership</span>
+                            <span>Sep 2026</span>
+                        </div>
+                        <h3 class="font-display text-xl font-bold text-charcoal-900 leading-snug">
+                            Eclipse Tech Labs Commits $300M to Generative AI Governance Research with ETH Zurich.
+                        </h3>
+                        <p class="text-xs text-charcoal-600 leading-relaxed">
+                            A multi-year initiative centered on autonomous agent verification, safety standards, and climate model optimization.
+                        </p>
+                    </div>
+                    <button onclick="readArticle('ai')" class="text-xs font-bold tracking-[0.18em] text-crimson-700 uppercase flex items-center gap-2 pt-4 border-t border-cream-200">
+                        <span>Read Full Release</span>
+                        <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                    </button>
+                </article>
+
+                <!-- Article 3 -->
+                <article class="bg-cream-50 border border-cream-300 p-8 space-y-4 flex flex-col justify-between hover:border-crimson-700/50 transition-colors news-item" data-title="real estate landmark acquisition tower london">
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between text-[10px] font-semibold tracking-[0.2em] text-crimson-700 uppercase">
+                            <span>Acquisition</span>
+                            <span>Aug 2026</span>
+                        </div>
+                        <h3 class="font-display text-xl font-bold text-charcoal-900 leading-snug">
+                            Eclipse Real Estate Completes Acquisition of Premier Mayfair Commercial Square in London.
+                        </h3>
+                        <p class="text-xs text-charcoal-600 leading-relaxed">
+                            The landmark 450,000 sq. ft. complex will undergo a historic restoration to achieve 100% net-zero operational standards.
+                        </p>
+                    </div>
+                    <button onclick="readArticle('realestate')" class="text-xs font-bold tracking-[0.18em] text-crimson-700 uppercase flex items-center gap-2 pt-4 border-t border-cream-200">
+                        <span>Read Full Release</span>
+                        <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                    </button>
+                </article>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Contact & Investor Inquiry Section -->
+    <section id="contact" class="py-28 bg-cream-50 relative">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12">
+            
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-16">
+                
+                <!-- Left Info Box -->
+                <div class="lg:col-span-5 space-y-8">
+                    <div>
+                        <span class="text-xs font-bold tracking-[0.25em] text-crimson-700 uppercase">Institutional Inquiries</span>
+                        <h2 class="font-display text-4xl sm:text-5xl font-normal text-charcoal-900 mt-2">
+                            Connect With Our Executive Office.
+                        </h2>
+                    </div>
+
+                    <p class="text-sm text-charcoal-600 leading-relaxed">
+                        Eclipse Group ™ welcomes strategic dialogues with accredited institutional investors, sovereign wealth partners, municipal leaders, and enterprise founders.
+                    </p>
+
+                    <div class="space-y-6 pt-4 border-t border-cream-300">
+                        <div class="flex items-start gap-4">
+                            <div class="p-3 bg-cream-200 border border-cream-300 text-crimson-700">
+                                <i data-lucide="building-2" class="w-5 h-5"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-xs font-bold tracking-wider text-charcoal-900 uppercase">Executive Headquarters</h4>
+                                <p class="text-xs text-charcoal-600">Gotthardstrasse 26, 8002 Zurich, Switzerland</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-4">
+                            <div class="p-3 bg-cream-200 border border-cream-300 text-crimson-700">
+                                <i data-lucide="mail" class="w-5 h-5"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-xs font-bold tracking-wider text-charcoal-900 uppercase">Investor Communications</h4>
+                                <p class="text-xs text-charcoal-600">investors@eclipsegroup.global</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-4">
+                            <div class="p-3 bg-cream-200 border border-cream-300 text-crimson-700">
+                                <i data-lucide="phone-call" class="w-5 h-5"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-xs font-bold tracking-wider text-charcoal-900 uppercase">Private Desk</h4>
+                                <p class="text-xs text-charcoal-600">+41 44 892 0000 / +1 212 555 0198</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Form Right -->
+                <div class="lg:col-span-7">
+                    <form id="inquiryForm" onsubmit="handleFormSubmit(event)" class="bg-cream-100 p-8 sm:p-12 border border-cream-300 shadow-luxury space-y-6">
+                        
+                        <div class="flex justify-between items-center border-b border-cream-300 pb-4">
+                            <h3 class="font-display text-xl font-bold text-charcoal-900">Official Inquiry Desk</h3>
+                            <span class="text-[10px] tracking-widest text-crimson-700 uppercase font-semibold">Strict Confidentiality</span>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                            <div class="space-y-1.5">
+                                <label class="text-[11px] font-bold tracking-[0.15em] text-charcoal-800 uppercase">Full Name *</label>
+                                <input type="text" required placeholder="e.g. Lord Julian Sterling" class="w-full px-4 py-3 bg-cream-50 border border-cream-300 text-xs text-charcoal-900 focus:outline-none focus:border-crimson-700">
+                            </div>
+
+                            <div class="space-y-1.5">
+                                <label class="text-[11px] font-bold tracking-[0.15em] text-charcoal-800 uppercase">Institutional Email *</label>
+                                <input type="email" required placeholder="j.sterling@institution.com" class="w-full px-4 py-3 bg-cream-50 border border-cream-300 text-xs text-charcoal-900 focus:outline-none focus:border-crimson-700">
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                            <div class="space-y-1.5">
+                                <label class="text-[11px] font-bold tracking-[0.15em] text-charcoal-800 uppercase">Organization / Firm *</label>
+                                <input type="text" required placeholder="Capital Management / Family Office" class="w-full px-4 py-3 bg-cream-50 border border-cream-300 text-xs text-charcoal-900 focus:outline-none focus:border-crimson-700">
+                            </div>
+
+                            <div class="space-y-1.5">
+                                <label class="text-[11px] font-bold tracking-[0.15em] text-charcoal-800 uppercase">Nature of Inquiry *</label>
+                                <select required class="w-full px-4 py-3 bg-cream-50 border border-cream-300 text-xs text-charcoal-900 focus:outline-none focus:border-crimson-700">
+                                    <option value="">Select Primary Classification...</option>
+                                    <option value="investor">Investor Relations & Capital Allocation</option>
+                                    <option value="realestate">Real Estate & Asset Acquisition</option>
+                                    <option value="venture">Tech Venture & AI Partnership</option>
+                                    <option value="media">Media & Press Inquiries</option>
+                                    <option value="executive">Board / Executive Governance</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="space-y-1.5">
+                            <label class="text-[11px] font-bold tracking-[0.15em] text-charcoal-800 uppercase">Message & Proposal Scope *</label>
+                            <textarea rows="4" required placeholder="Please provide an outline of your institutional inquiry or strategic proposal..." class="w-full px-4 py-3 bg-cream-50 border border-cream-300 text-xs text-charcoal-900 focus:outline-none focus:border-crimson-700"></textarea>
+                        </div>
+
+                        <div class="flex items-center gap-3 text-xs text-charcoal-600">
+                            <input type="checkbox" required id="ndaCheck" class="accent-crimson-700">
+                            <label for="ndaCheck" class="text-[11px]">I confirm this inquiry represents an authorized accredited entity under global compliance laws.</label>
+                        </div>
+
+                        <button type="submit" class="w-full py-4 bg-crimson-700 hover:bg-crimson-800 text-cream-50 font-bold text-xs tracking-[0.25em] uppercase transition-all shadow-luxury flex items-center justify-center gap-2">
+                            <span>Submit Formal Inquiry</span>
+                            <i data-lucide="send" class="w-4 h-4"></i>
+                        </button>
+
+                    </form>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer class="bg-charcoal-900 text-cream-200 pt-20 pb-12 border-t border-crimson-900/40">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12 space-y-16">
+            
+            <!-- Global Office Locations Grid -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 border-b border-charcoal-700 pb-12">
+                <div>
+                    <span class="text-[10px] font-bold tracking-[0.25em] text-crimson-500 uppercase">Zurich (HQ)</span>
+                    <h5 class="font-serif text-lg text-white font-semibold mt-1">Gotthardstrasse 26</h5>
+                    <p class="text-xs text-cream-400 mt-1">8002 Zurich, Switzerland</p>
+                    <p class="text-[11px] text-crimson-400 mt-2">CH-8002 • SEC Registered</p>
+                </div>
+
+                <div>
+                    <span class="text-[10px] font-bold tracking-[0.25em] text-crimson-500 uppercase">New York</span>
+                    <h5 class="font-serif text-lg text-white font-semibold mt-1">767 Fifth Avenue</h5>
+                    <p class="text-xs text-cream-400 mt-1">New York, NY 10153, USA</p>
+                    <p class="text-[11px] text-crimson-400 mt-2">US-NY • Wall St Desk</p>
+                </div>
+
+                <div>
+                    <span class="text-[10px] font-bold tracking-[0.25em] text-crimson-500 uppercase">London</span>
+                    <h5 class="font-serif text-lg text-white font-semibold mt-1">15 Berkeley Square</h5>
+                    <p class="text-xs text-cream-400 mt-1">Mayfair, London W1J 6EB</p>
+                    <p class="text-[11px] text-crimson-400 mt-2">UK-LDN • FCA Compliant</p>
+                </div>
+
+                <div>
+                    <span class="text-[10px] font-bold tracking-[0.25em] text-crimson-500 uppercase">Dubai</span>
+                    <h5 class="font-serif text-lg text-white font-semibold mt-1">DIFC Gate Precinct 4</h5>
+                    <p class="text-xs text-cream-400 mt-1">Dubai International Fin. Centre</p>
+                    <p class="text-[11px] text-crimson-400 mt-2">UAE-DXB • Sovereign Hub</p>
+                </div>
+            </div>
+
+            <!-- Footer Links & Brand -->
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-12">
+                
+                <div class="md:col-span-4 space-y-4">
+                    <div class="flex items-center gap-3">
+                        <div class="w-8 h-8 rounded-full bg-crimson-700 flex items-center justify-center font-bold text-white text-xs">
+                            E
+                        </div>
+                        <span class="font-display text-xl font-bold tracking-[0.2em] text-white">ECLIPSE GROUP ™</span>
+                    </div>
+                    <p class="text-xs text-cream-400 leading-relaxed font-light">
+                        A global multi-asset holding group built on structural permanence, luxury architecture, high-impact technology, and ethical capital stewardship.
+                    </p>
+                </div>
+
+                <div class="md:col-span-2 space-y-3">
+                    <h5 class="text-xs font-bold tracking-[0.2em] text-white uppercase">Divisions</h5>
+                    <ul class="space-y-2 text-xs text-cream-400">
+                        <li><a href="#divisions" class="hover:text-crimson-500 transition-colors">Capital Ventures</a></li>
+                        <li><a href="#divisions" class="hover:text-crimson-500 transition-colors">Real Estate Holdings</a></li>
+                        <li><a href="#divisions" class="hover:text-crimson-500 transition-colors">Future Tech & AI</a></li>
+                        <li><a href="#divisions" class="hover:text-crimson-500 transition-colors">Media Group</a></li>
+                    </ul>
+                </div>
+
+                <div class="md:col-span-2 space-y-3">
+                    <h5 class="text-xs font-bold tracking-[0.2em] text-white uppercase">Governance</h5>
+                    <ul class="space-y-2 text-xs text-cream-400">
+                        <li><a href="#vision" class="hover:text-crimson-500 transition-colors">Board of Directors</a></li>
+                        <li><a href="#impact" class="hover:text-crimson-500 transition-colors">ESG Governance</a></li>
+                        <li><a href="#impact" class="hover:text-crimson-500 transition-colors">Annual Report 2026</a></li>
+                        <li><a href="#contact" class="hover:text-crimson-500 transition-colors">Compliance Desk</a></li>
+                    </ul>
+                </div>
+
+                <div class="md:col-span-4 space-y-4">
+                    <h5 class="text-xs font-bold tracking-[0.2em] text-white uppercase">Corporate Dispatch Newsletter</h5>
+                    <p class="text-xs text-cream-400">Receive private executive summaries and quarter-end portfolio reports directly.</p>
+                    <form onsubmit="handleNewsletter(event)" class="flex items-center">
+                        <input type="email" required placeholder="executive@institution.com" class="px-4 py-2.5 bg-charcoal-800 text-xs text-white border border-charcoal-700 focus:outline-none focus:border-crimson-700 w-full">
+                        <button type="submit" class="px-4 py-2.5 bg-crimson-700 text-white hover:bg-crimson-800 transition-colors">
+                            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                        </button>
+                    </form>
+                </div>
+
+            </div>
+
+            <!-- Bottom Copyright -->
+            <div class="border-t border-charcoal-800 pt-8 flex flex-col sm:flex-row justify-between items-center text-[11px] text-cream-400 gap-4">
+                <p>© 2026 Eclipse Group ™ Holdings S.A. All international rights reserved.</p>
+                <div class="flex items-center gap-6">
+                    <a href="#" class="hover:text-white">Privacy Policy</a>
+                    <a href="#" class="hover:text-white">Terms of Investment</a>
+                    <a href="#" class="hover:text-white">Regulatory Disclosures</a>
+                    <a href="#" class="hover:text-white">Security Desk</a>
+                </div>
+            </div>
+
+        </div>
+    </footer>
+
+    <!-- Interactive Reusable Modal Template -->
+    <div id="infoModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 sm:p-6 bg-charcoal-900/80 backdrop-blur-md">
+        <div class="bg-cream-100 border border-cream-300 max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl relative p-8 sm:p-10 space-y-6">
+            <button onclick="closeModal()" class="absolute top-6 right-6 p-2 text-charcoal-600 hover:text-crimson-700 focus:outline-none">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+            <div id="modalContent">
+                <!-- Dynamically Inserted -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // Mobile Menu Toggle
+        const menuBtn = document.getElementById('menuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Close mobile menu when clicking link
+        document.querySelectorAll('.mobile-link').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // Dynamic Global Wall Clock Simulation
+        function updateGlobalClocks() {
+            const now = new Date();
+            const ny = new Date(now.toLocaleString("en-US", {timeZone: "America/New_York"}));
+            const lon = new Date(now.toLocaleString("en-US", {timeZone: "Europe/London"}));
+            const dxb = new Date(now.toLocaleString("en-US", {timeZone: "Asia/Dubai"}));
+            const tyo = new Date(now.toLocaleString("en-US", {timeZone: "Asia/Tokyo"}));
+
+            const format = (d) => d.getHours().toString().padStart(2, '0') + ':' + d.getMinutes().toString().padStart(2, '0');
+            const clockText = `NY ${format(ny)} • LON ${format(lon)} • DXB ${format(dxb)} • TYO ${format(tyo)}`;
+            
+            const clockElem = document.getElementById('globalClock');
+            if(clockElem) clockElem.innerText = clockText;
+        }
+        setInterval(updateGlobalClocks, 1000);
+        updateGlobalClocks();
+
+        // Division Filter Tabs
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const cards = document.querySelectorAll('.division-card');
+
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const tab = btn.getAttribute('data-tab');
+                
+                tabBtns.forEach(b => {
+                    b.classList.remove('bg-charcoal-900', 'text-cream-50');
+                    b.classList.add('bg-cream-200', 'text-charcoal-700');
+                });
+                btn.classList.remove('bg-cream-200', 'text-charcoal-700');
+                btn.classList.add('bg-charcoal-900', 'text-cream-50');
+
+                cards.forEach(card => {
+                    if (tab === 'all' || card.getAttribute('data-category') === tab) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Sustainability Slider Interactive Feedback
+        const energySlider = document.getElementById('energySlider');
+        const targetVal = document.getElementById('targetVal');
+        const carbonOffset = document.getElementById('carbonOffset');
+        const socialReinvest = document.getElementById('socialReinvest');
+
+        if(energySlider) {
+            energySlider.addEventListener('input', (e) => {
+                const val = e.target.value;
+                targetVal.innerText = val + '%';
+                
+                const offset = (val * 0.0247).toFixed(2);
+                carbonOffset.innerText = `${offset} Million Metric Tons`;
+                
+                const reinvest = Math.round(val * 1.89);
+                socialReinvest.innerText = `$${reinvest} Million USD`;
+            });
+        }
+
+        // Metrics Counter Scroll Animation
+        let counted = false;
+        window.addEventListener('scroll', () => {
+            const visionSection = document.getElementById('vision');
+            if(!visionSection) return;
+            const rect = visionSection.getBoundingClientRect();
+            if (rect.top <= window.innerHeight && !counted) {
+                counted = true;
+                document.querySelectorAll('.counter').forEach(counter => {
+                    const target = parseFloat(counter.getAttribute('data-target'));
+                    let current = 0;
+                    const increment = target / 50;
+                    const timer = setInterval(() => {
+                        current += increment;
+                        if (current >= target) {
+                            counter.innerText = target;
+                            clearInterval(timer);
+                        } else {
+                            counter.innerText = Number.isInteger(target) ? Math.floor(current) : current.toFixed(2);
+                        }
+                    }, 30);
+                });
+            }
+        });
+
+        // Search Filter in Newsroom
+        const newsSearch = document.getElementById('newsSearch');
+        if(newsSearch) {
+            newsSearch.addEventListener('input', (e) => {
+                const term = e.target.value.toLowerCase();
+                document.querySelectorAll('.news-item').forEach(item => {
+                    const title = item.getAttribute('data-title').toLowerCase();
+                    if(title.includes(term)) {
+                        item.style.display = 'flex';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        }
+
+        // Modal Handler
+        const modal = document.getElementById('infoModal');
+        const modalContent = document.getElementById('modalContent');
+
+        function openModal(html) {
+            modalContent.innerHTML = html;
+            modal.classList.remove('hidden');
+            lucide.createIcons();
+        }
+
+        function closeModal() {
+            modal.classList.add('hidden');
+        }
+
+        modal.addEventListener('click', (e) => {
+            if(e.target === modal) closeModal();
+        });
+
+        // Division Detail Blueprint Modal Content
+        function openDivisionModal(divKey) {
+            const data = {
+                capital: {
+                    title: "Eclipse Capital & Private Equity Blueprint",
+                    subtitle: "Division I Executive Overview",
+                    body: "Eclipse Capital deploys private equity, sovereign credit, and strategic growth capital across North America, EMEA, and Asia. Our focus includes buyouts of mission-critical industrial infrastructure, software enterprise, and clean utility providers.",
+                    highlights: ["$2.1B Managed Assets", "Average IRR: 28.4%", "Cross-border Deal Desk in Zurich & NY"]
+                },
+                realestate: {
+                    title: "Eclipse Real Estate Holdings Blueprint",
+                    subtitle: "Division II Executive Overview",
+                    body: "Eclipse Real Estate acquires and develops ultra-prime commercial assets in tier-1 global capitals. Every landmark property undergoes structural modernization to achieve zero operational emissions and maximum occupant luxury.",
+                    highlights: ["12.4M Sq. Ft. Commercial Space", "LEED Platinum Standard across 100% of holdings", "Trophy properties in Mayfair, Fifth Avenue, and Zurich"]
+                },
+                tech: {
+                    title: "Eclipse Future Tech & AI Labs Blueprint",
+                    subtitle: "Division III Executive Overview",
+                    body: "Our technology research division incubates next-generation generative AI infrastructure, sovereign cloud security, and quantum algorithms. We partner directly with leading university laboratories worldwide.",
+                    highlights: ["114 Global Patents Granted", "$300M AI Safety Endowment with ETH Zurich", "Deep Tech Incubator in Silicon Valley"]
+                },
+                media: {
+                    title: "Eclipse Media & Global Ventures Blueprint",
+                    subtitle: "Division IV Executive Overview",
+                    body: "Eclipse Media owns and operates top-tier narrative publishing platforms, cultural intelligence hubs, and high-level corporate advisory firms shaping global executive discourse.",
+                    highlights: ["85M+ Monthly High-Net-Worth Reach", "9 Iconic Cultural Publications", "Global Media Headquarters in New York & Tokyo"]
+                }
+            };
+
+            const item = data[divKey];
+            if(!item) return;
+
+            const html = `
+                <span class="text-xs font-bold tracking-[0.25em] text-crimson-700 uppercase">${item.subtitle}</span>
+                <h3 class="font-display text-3xl font-bold text-charcoal-900 mt-2">${item.title}</h3>
+                <p class="text-sm text-charcoal-600 leading-relaxed mt-4">${item.body}</p>
+                <div class="bg-cream-200 border-l-4 border-crimson-700 p-4 mt-6 space-y-2">
+                    <h5 class="text-xs font-bold tracking-wider text-charcoal-900 uppercase">Operational Key Highlights:</h5>
+                    <ul class="list-disc list-inside text-xs text-charcoal-700 space-y-1">
+                        ${item.highlights.map(h => `<li>${h}</li>`).join('')}
+                    </ul>
+                </div>
+                <div class="pt-6 border-t border-cream-300 flex justify-end">
+                    <button onclick="closeModal()" class="px-6 py-2.5 bg-charcoal-900 text-white text-xs tracking-widest uppercase hover:bg-crimson-700 transition-colors">Close Overview</button>
+                </div>
+            `;
+            openModal(html);
+        }
+
+        // Executive Bio Modal
+        function openExecModal(execKey) {
+            const bios = {
+                vance: {
+                    name: "Lord Alexander Vance",
+                    role: "Executive Chairman & Founder",
+                    bio: "Lord Vance founded Eclipse Group ™ after 25 years in international merchant banking. He has advised multiple European central banks and sovereign wealth funds on cross-border infrastructure initiatives."
+                },
+                rostova: {
+                    name: "Dr. Elena Rostova",
+                    role: "Managing Partner, Capital & Tech",
+                    bio: "Dr. Rostova holds a Doctorate in Quantum Computation from ETH Zurich. She leads Eclipse Group's $2B capital allocation into artificial intelligence protocols and computational hardware."
+                },
+                sterling: {
+                    name: "Marcus Sterling",
+                    role: "Director, Real Estate Holdings",
+                    bio: "Marcus Sterling is a world-renowned architectural strategist who has overseen over $5B in landmark urban developments in London, Paris, and Singapore."
+                },
+                chen: {
+                    name: "Sophia Chen",
+                    role: "Chief ESG & Governance Officer",
+                    bio: "Sophia Chen previously served as Senior Governance Delegate to global climate summits. She ensures that 100% of Eclipse Group's investments satisfy strict sustainability and ethical parameters."
+                }
+            };
+
+            const item = bios[execKey];
+            if(!item) return;
+
+            const html = `
+                <span class="text-xs font-bold tracking-[0.25em] text-crimson-700 uppercase">${item.role}</span>
+                <h3 class="font-display text-3xl font-bold text-charcoal-900 mt-1">${item.name}</h3>
+                <p class="text-sm text-charcoal-600 leading-relaxed mt-4">${item.bio}</p>
+                <div class="pt-6 border-t border-cream-300 flex justify-end">
+                    <button onclick="closeModal()" class="px-6 py-2.5 bg-crimson-700 text-white text-xs tracking-widest uppercase hover:bg-crimson-800 transition-colors">Close Biography</button>
+                </div>
+            `;
+            openModal(html);
+        }
+
+        // News Reader Modal
+        function readArticle(artKey) {
+            const articles = {
+                bond: {
+                    title: "Eclipse Group ™ Issues Over-Subscribed $850M Sovereign Green Infrastructure Bond",
+                    date: "October 2026 • Press Release",
+                    body: "ZURICH & NEW YORK — Eclipse Group ™ today announced the successful issuance of its $850 million Green Infrastructure Bond. Institutional demand exceeded available allocation by 3.8x, demonstrating immense global confidence in Eclipse Group's sustainable real asset portfolio."
+                },
+                ai: {
+                    title: "Eclipse Tech Labs Commits $300M to Generative AI Governance Research",
+                    date: "September 2026 • Innovation News",
+                    body: "ZURICH — In partnership with leading European research institutes, Eclipse Future Tech Labs has established a landmark $300 million endowment dedicated to verifiable generative AI models and carbon-efficient compute frameworks."
+                },
+                realestate: {
+                    title: "Eclipse Real Estate Completes Acquisition of Premier Mayfair Square",
+                    date: "August 2026 • Real Estate Holding",
+                    body: "LONDON — Eclipse Real Estate Holdings has finalized the purchase of a historic 450,000 sq. ft. commercial complex in Mayfair, London. The property will undergo a $120M restoration to convert it into a net-zero commercial innovation hub."
+                }
+            };
+
+            const item = articles[artKey];
+            if(!item) return;
+
+            const html = `
+                <span class="text-xs font-bold tracking-[0.25em] text-crimson-700 uppercase">${item.date}</span>
+                <h3 class="font-display text-2xl font-bold text-charcoal-900 mt-2 leading-snug">${item.title}</h3>
+                <p class="text-xs sm:text-sm text-charcoal-700 leading-relaxed mt-4">${item.body}</p>
+                <div class="pt-6 border-t border-cream-300 flex justify-end">
+                    <button onclick="closeModal()" class="px-6 py-2.5 bg-charcoal-900 text-white text-xs tracking-widest uppercase hover:bg-crimson-700 transition-colors">Done Reading</button>
+                </div>
+            `;
+            openModal(html);
+        }
+
+        // Form Submission Toast Modal
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            const refCode = 'EG-' + Math.floor(1000 + Math.random() * 9000) + '-2026';
+            const html = `
+                <div class="text-center space-y-4 py-4">
+                    <div class="w-12 h-12 rounded-full bg-crimson-100 text-crimson-700 flex items-center justify-center mx-auto border border-crimson-700/30">
+                        <i data-lucide="check" class="w-6 h-6"></i>
+                    </div>
+                    <span class="text-xs font-bold tracking-[0.25em] text-crimson-700 uppercase">Submission Confirmed</span>
+                    <h3 class="font-display text-3xl font-bold text-charcoal-900">Inquiry Transmitted</h3>
+                    <p class="text-xs text-charcoal-600 max-w-md mx-auto">
+                        Your inquiry has been encrypted and routed directly to the Executive Office of Eclipse Group ™.
+                    </p>
+                    <div class="p-3 bg-cream-200 border border-cream-300 text-xs font-mono text-charcoal-800">
+                        Reference Dossier Code: <strong>${refCode}</strong>
+                    </div>
+                    <button onclick="closeModal(); document.getElementById('inquiryForm').reset();" class="px-8 py-3 bg-crimson-700 text-white text-xs tracking-widest uppercase hover:bg-crimson-800 transition-colors">
+                        Return to Homepage
+                    </button>
+                </div>
+            `;
+            openModal(html);
+        }
+
+        function handleNewsletter(e) {
+            e.preventDefault();
+            const html = `
+                <div class="text-center space-y-4 py-4">
+                    <i data-lucide="mail-check" class="w-10 h-10 text-crimson-700 mx-auto"></i>
+                    <h3 class="font-display text-2xl font-bold text-charcoal-900">Subscription Registered</h3>
+                    <p class="text-xs text-charcoal-600">You will now receive Eclipse Group's quarterly executive briefs and official announcements.</p>
+                    <button onclick="closeModal()" class="px-6 py-2.5 bg-charcoal-900 text-white text-xs tracking-widest uppercase">Close</button>
+                </div>
+            `;
+            openModal(html);
+        }
+
+        // Interactive Animated HTML5 Eclipse Canvas Background
+        const canvas = document.getElementById('eclipseCanvas');
+        if(canvas) {
+            const ctx = canvas.getContext('2d');
+            let width, height;
+            let particles = [];
+
+            function resizeCanvas() {
+                width = canvas.width = canvas.parentElement.clientWidth;
+                height = canvas.height = canvas.parentElement.clientHeight;
+                initParticles();
+            }
+
+            function initParticles() {
+                particles = [];
+                const particleCount = Math.floor(width / 25);
+                for(let i = 0; i < particleCount; i++) {
+                    particles.push({
+                        x: Math.random() * width,
+                        y: Math.random() * height,
+                        radius: Math.random() * 2 + 0.5,
+                        speedX: (Math.random() - 0.5) * 0.3,
+                        speedY: (Math.random() - 0.5) * 0.3,
+                        alpha: Math.random() * 0.5 + 0.2
+                    });
+                }
+            }
+
+            function drawEclipse() {
+                ctx.clearRect(0, 0, width, height);
+
+                const centerX = width * 0.75;
+                const centerY = height * 0.45;
+                const radius = Math.min(width, height) * 0.22;
+
+                // Outer Corona Glow
+                const gradient = ctx.createRadialGradient(centerX, centerY, radius * 0.8, centerX, centerY, radius * 1.8);
+                gradient.addColorStop(0, 'rgba(139, 0, 0, 0.4)');
+                gradient.addColorStop(0.5, 'rgba(192, 42, 42, 0.15)');
+                gradient.addColorStop(1, 'rgba(253, 251, 247, 0)');
+
+                ctx.beginPath();
+                ctx.arc(centerX, centerY, radius * 1.8, 0, Math.PI * 2);
+                ctx.fillStyle = gradient;
+                ctx.fill();
+
+                // Golden Inner Rim Accent
+                const rimGrad = ctx.createRadialGradient(centerX - 10, centerY - 10, radius * 0.95, centerX, centerY, radius * 1.05);
+                rimGrad.addColorStop(0, 'rgba(212, 196, 172, 0.6)');
+                rimGrad.addColorStop(1, 'rgba(139, 0, 0, 0)');
+
+                ctx.beginPath();
+                ctx.arc(centerX, centerY, radius * 1.05, 0, Math.PI * 2);
+                ctx.fillStyle = rimGrad;
+                ctx.fill();
+
+                // Moon Phase (Eclipse Center)
+                ctx.beginPath();
+                ctx.arc(centerX, centerY, radius, 0, Math.PI * 2);
+                ctx.fillStyle = '#0F0E0E';
+                ctx.fill();
+
+                // Ambient Particles
+                particles.forEach(p => {
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(139, 0, 0, ${p.alpha})`;
+                    ctx.fill();
+
+                    p.x += p.speedX;
+                    p.y += p.speedY;
+
+                    if(p.x < 0 || p.x > width) p.speedX *= -1;
+                    if(p.y < 0 || p.y > height) p.speedY *= -1;
+                });
+
+                requestAnimationFrame(drawEclipse);
+            }
+
+            window.addEventListener('resize', resizeCanvas);
+            resizeCanvas();
+            drawEclipse();
+        }
+    </script>
+</body>
+                      </html>
